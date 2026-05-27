@@ -287,14 +287,26 @@ function RepairInquiryPage() {
 
   useEffect(() => {
     const ua = navigator.userAgent;
+    const detectAndroidBrand = () => {
+      if (/SM-/.test(ua)) return "samsung";
+      if (/Xiaomi|Redmi|POCO/.test(ua)) return "xiaomi";
+      if (/HUAWEI|HW-/.test(ua)) return "huawei";
+      if (/OnePlus/.test(ua)) return "oneplus";
+      if (/Pixel/.test(ua)) return "google";
+      if (/Sony/.test(ua)) return "sony";
+      if (/Nokia/.test(ua)) return "nokia";
+      if (/moto/i.test(ua)) return "motorola";
+      return "samsung";
+    };
     if (/iPad/.test(ua) || (/Android/.test(ua) && !/Mobile/.test(ua))) {
       setDevice("tablet");
-      if (/iPad/.test(ua)) setBrand("apple");
+      setBrand(/iPad/.test(ua) ? "apple" : detectAndroidBrand());
     } else if (/iPhone|iPod/.test(ua)) {
       setDevice("phone");
       setBrand("apple");
     } else if (/Android/.test(ua)) {
       setDevice("phone");
+      setBrand(detectAndroidBrand());
     } else {
       setDevice("laptop");
       if (/Macintosh/.test(ua)) setBrand("apple");
@@ -347,7 +359,7 @@ function RepairInquiryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/10 selection:text-primary">
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary/10 selection:text-primary overflow-x-hidden">
       <Toaster position="top-right" richColors />
 
       <main className="max-w-7xl mx-auto px-6 py-12 md:py-20">
