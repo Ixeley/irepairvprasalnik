@@ -125,32 +125,6 @@ function RepairInquiryPage() {
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/10 selection:text-primary">
       <Toaster position="top-right" richColors />
 
-      {/* Header */}
-      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <a href="/" className="flex items-center gap-2">
-            <div className="size-8 bg-foreground flex items-center justify-center rounded-sm">
-              <span className="text-background font-black text-lg">iR</span>
-            </div>
-            <span className="font-bold tracking-tight text-xl">iRepair.si</span>
-          </a>
-          <div className="hidden md:flex gap-8 text-sm font-medium">
-            <a href="#" className="hover:text-primary transition-colors">
-              Popravila
-            </a>
-            <a href="#" className="hover:text-primary transition-colors">
-              Rezervni deli
-            </a>
-            <a href="#" className="hover:text-primary transition-colors">
-              Kontakt
-            </a>
-          </div>
-          <div className="hidden sm:block text-xs font-mono bg-primary/5 text-primary px-3 py-1.5 rounded-full border border-primary/20">
-            STATUS: DELAVNICA ODPRTA
-          </div>
-        </div>
-      </nav>
-
       <main className="max-w-7xl mx-auto px-6 py-12 md:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           {/* Form Column */}
@@ -464,24 +438,6 @@ function RepairInquiryPage() {
         </div>
       </main>
 
-      <footer className="border-t border-border py-12 mt-20">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} iRepair.si — Vse pravice pridržane.
-          </div>
-          <div className="flex gap-6 text-xs font-mono text-muted-foreground uppercase">
-            <a href="#" className="hover:text-primary">
-              Zasebnost
-            </a>
-            <a href="#" className="hover:text-primary">
-              Pogoji
-            </a>
-            <a href="#" className="hover:text-primary">
-              Lokacije
-            </a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
