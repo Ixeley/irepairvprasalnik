@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
-import { sendInquiryEmail } from "@/lib/send-email";
+import { sendInquiryEmail, type InquiryData } from "@/lib/send-email";
 
 export const Route = createFileRoute("/")({
   component: RepairInquiryPage,
@@ -102,7 +102,8 @@ function RepairInquiryPage() {
 
     setSending(true);
     try {
-      await sendInquiryEmail({ data: { device, brand, model, issues, problem, name, email, phone } });
+      const payload: InquiryData = { device, brand, model, issues, problem, name, email, phone };
+      await sendInquiryEmail(payload);
       toast.success("Povpraševanje uspešno poslano!", {
         description: "Naši tehniki se vam bodo oglasili v najkrajšem možnem času.",
       });
