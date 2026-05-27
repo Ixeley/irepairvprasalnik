@@ -79,6 +79,8 @@ const MODELS: Record<string, string[]> = {
     "Galaxy Note 10", "Galaxy Note 10+", "Galaxy Note 10 Lite",
     "Galaxy Note 20", "Galaxy Note 20 Ultra",
     // S serija
+    "Galaxy S4", "Galaxy S4 Mini",
+    "Galaxy S5", "Galaxy S5 Mini",
     "Galaxy S6", "Galaxy S6 Edge", "Galaxy S6 Edge+",
     "Galaxy S7", "Galaxy S7 Edge",
     "Galaxy S8", "Galaxy S8+",
@@ -122,6 +124,10 @@ const MODELS: Record<string, string[]> = {
     "Galaxy F13", "Galaxy F23", "Galaxy F42 5G", "Galaxy F54",
     // Xcover (rugged)
     "Galaxy Xcover 4", "Galaxy Xcover 4s", "Galaxy Xcover 5", "Galaxy Xcover 6 Pro", "Galaxy Xcover 7",
+    // Grand / Core / Win (stari)
+    "Galaxy Grand Prime", "Galaxy Grand Prime Pro",
+    "Galaxy Core Prime", "Galaxy Core 2",
+    "Galaxy Win",
     // Z serija (zložljivi)
     "Galaxy Z Fold 3", "Galaxy Z Fold 4", "Galaxy Z Fold 5", "Galaxy Z Fold 6",
     "Galaxy Z Flip 3", "Galaxy Z Flip 4", "Galaxy Z Flip 5", "Galaxy Z Flip 6",
@@ -223,27 +229,61 @@ const MODELS: Record<string, string[]> = {
     "Nord N10", "Nord N100", "Nord N20", "Nord N200",
   ],
   google_phone: [
-    "Pixel 4", "Pixel 4 XL", "Pixel 4a",
+    "Pixel 2", "Pixel 2 XL",
+    "Pixel 3", "Pixel 3 XL", "Pixel 3a", "Pixel 3a XL",
+    "Pixel 4", "Pixel 4 XL", "Pixel 4a", "Pixel 4a 5G",
     "Pixel 5", "Pixel 5a",
     "Pixel 6", "Pixel 6 Pro", "Pixel 6a",
     "Pixel 7", "Pixel 7 Pro", "Pixel 7a",
     "Pixel 8", "Pixel 8 Pro", "Pixel 8a",
     "Pixel 9", "Pixel 9 Pro", "Pixel 9 Pro XL", "Pixel 9 Pro Fold",
+    "Pixel Fold",
   ],
   google_tablet: [
     "Pixel Tablet",
   ],
   sony_phone: [
-    "Xperia 10 III", "Xperia 10 IV", "Xperia 10 V", "Xperia 10 VI",
-    "Xperia 5 II", "Xperia 5 III", "Xperia 5 IV", "Xperia 5 V",
-    "Xperia 1 II", "Xperia 1 III", "Xperia 1 IV", "Xperia 1 V", "Xperia 1 VI",
+    // Z serija (stara)
+    "Xperia Z3", "Xperia Z3 Compact", "Xperia Z3+",
+    "Xperia Z5", "Xperia Z5 Compact", "Xperia Z5 Premium",
+    // X serija
+    "Xperia X", "Xperia X Compact", "Xperia X Performance",
+    "Xperia XA", "Xperia XA1", "Xperia XA1 Plus", "Xperia XA1 Ultra",
+    "Xperia XA2", "Xperia XA2 Plus", "Xperia XA2 Ultra",
+    // XZ serija
+    "Xperia XZ", "Xperia XZs",
+    "Xperia XZ1", "Xperia XZ1 Compact",
+    "Xperia XZ2", "Xperia XZ2 Compact", "Xperia XZ2 Premium",
+    "Xperia XZ3",
+    // Moderna serija
+    "Xperia L4", "Xperia L3",
+    "Xperia 10", "Xperia 10 Plus",
+    "Xperia 10 II",
+    "Xperia 10 III", "Xperia 10 III Lite",
+    "Xperia 10 IV", "Xperia 10 V", "Xperia 10 VI",
+    "Xperia 5", "Xperia 5 II", "Xperia 5 III", "Xperia 5 IV", "Xperia 5 V",
+    "Xperia 1", "Xperia 1 II", "Xperia 1 III", "Xperia 1 IV", "Xperia 1 V", "Xperia 1 VI",
   ],
   nokia_phone: [
-    "Nokia 5.4", "Nokia 6.2", "Nokia 7.2",
-    "Nokia G10", "Nokia G20", "Nokia G21", "Nokia G22", "Nokia G42", "Nokia G60",
+    // Klasični modeli
+    "Nokia 2.2", "Nokia 2.3", "Nokia 2.4",
+    "Nokia 3.1", "Nokia 3.2", "Nokia 3.4",
+    "Nokia 4.2",
+    "Nokia 5.1", "Nokia 5.1 Plus", "Nokia 5.3", "Nokia 5.4",
+    "Nokia 6.1", "Nokia 6.1 Plus", "Nokia 6.2",
+    "Nokia 7.1", "Nokia 7.2",
+    "Nokia 8.1", "Nokia 8.3 5G",
+    "Nokia 9 PureView",
+    // C serija
+    "Nokia C1", "Nokia C2", "Nokia C3",
+    "Nokia C20", "Nokia C21", "Nokia C21 Plus",
+    "Nokia C22", "Nokia C30", "Nokia C32",
+    // G serija
+    "Nokia G10", "Nokia G11", "Nokia G20", "Nokia G21",
+    "Nokia G22", "Nokia G42", "Nokia G50", "Nokia G60",
+    // X serija
     "Nokia X10", "Nokia X20", "Nokia X30",
-    "Nokia C21", "Nokia C22", "Nokia C32",
-    "Nokia 3.4", "Nokia 4.2",
+    // T serija (tablice — v nokia_tablet)
   ],
   motorola_phone: [
     // Moto G serija
@@ -348,11 +388,22 @@ const MODELS: Record<string, string[]> = {
     "LG UltraPC 14", "LG UltraPC 16",
   ],
   lg_phone: [
-    "LG G8 ThinQ", "LG G8X ThinQ",
-    "LG V50 ThinQ", "LG V50S ThinQ", "LG V60 ThinQ",
-    "LG Velvet", "LG Wing",
-    "LG K42", "LG K52", "LG K62",
-    "LG Q52", "LG Q92",
+    // G serija
+    "LG G5", "LG G6", "LG G7 ThinQ", "LG G8 ThinQ", "LG G8X ThinQ",
+    // V serija
+    "LG V30", "LG V30+", "LG V40 ThinQ", "LG V50 ThinQ", "LG V50S ThinQ", "LG V60 ThinQ",
+    // Posebni modeli
+    "LG Velvet", "LG Velvet 5G",
+    "LG Wing",
+    "LG Stylo 5", "LG Stylo 6",
+    // K serija
+    "LG K40", "LG K40S", "LG K41S", "LG K42",
+    "LG K50", "LG K50S", "LG K51S", "LG K52", "LG K61", "LG K62",
+    "LG K71", "LG K92 5G",
+    // Q serija
+    "LG Q60", "LG Q52", "LG Q70", "LG Q92 5G",
+    // W serija
+    "LG W10", "LG W30",
   ],
   samsung_laptop: [
     "Galaxy Book Pro 360 13\"", "Galaxy Book Pro 360 15\"",
