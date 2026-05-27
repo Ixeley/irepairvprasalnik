@@ -299,6 +299,15 @@ const MODELS: Record<string, string[]> = {
   oneplus_tablet: [
     "OnePlus Pad", "OnePlus Pad 2", "OnePlus Pad Go",
   ],
+  asus_tablet: [
+    "ZenPad 3S 10", "ZenPad 10 M1000M",
+    "ROG Flow Z13", "ROG Flow X13",
+    "Chromebook Detachable CZ1", "Chromebook Detachable CM3",
+  ],
+  lg_tablet: [
+    "LG G Pad 5 10.1", "LG G Pad IV 8.0",
+    "LG G Pad III 8.0", "LG G Pad X II 8.0",
+  ],
 };
 
 const COMMON_ISSUES: Record<DeviceType, string[]> = {
