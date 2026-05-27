@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
+import { sendInquiryEmail } from "@/lib/send-email";
 
 export const Route = createFileRoute("/")({
   component: RepairInquiryPage,
@@ -77,13 +78,14 @@ function RepairInquiryPage() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [gdpr, setGdpr] = useState(false);
+  const [sending, setSending] = useState(false);
 
   const toggleIssue = (issue: string) =>
     setIssues((prev) =>
       prev.includes(issue) ? prev.filter((i) => i !== issue) : [...prev, issue],
     );
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!gdpr) {
       toast.error("Potrdite strinjanje s pogoji in GDPR.");
@@ -97,9 +99,25 @@ function RepairInquiryPage() {
       toast.error("Izberite vsaj eno težavo ali jo opišite spodaj.");
       return;
     }
-    toast.success("Povpraševanje uspešno poslano!", {
-      description: "Naši tehniki se vam bodo oglasili v najkrajšem možnem času.",
-    });
+
+    setSending(true);
+    try {
+      await sendInquiryEmail({ data: { device, brand, model, issues, problem, name, email, phone } });
+      toast.success("Povpraševanje uspešno poslano!", {
+        description: "Naši tehniki se vam bodo oglasili v najkrajšem možnem času.",
+      });
+      setModel("");
+      setIssues([]);
+      setProblem("");
+      setName("");
+      setEmail("");
+      setPhone("");
+      setGdpr(false);
+    } catch {
+      toast.error("Napaka pri pošiljanju. Poskusite znova ali nas pokličite.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -367,9 +385,10 @@ function RepairInquiryPage() {
 
               <button
                 type="submit"
-                className="w-full bg-foreground text-background font-bold py-5 rounded-md hover:bg-primary transition-colors uppercase tracking-widest shadow-lg shadow-black/5 animate-reveal [animation-delay:400ms]"
+                disabled={sending}
+                className="w-full bg-foreground text-background font-bold py-5 rounded-md hover:bg-primary transition-colors uppercase tracking-widest shadow-lg shadow-black/5 animate-reveal [animation-delay:400ms] disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                Pošlji povpraševanje
+                {sending ? "Pošiljam..." : "Pošlji povpraševanje"}
               </button>
             </form>
           </div>
