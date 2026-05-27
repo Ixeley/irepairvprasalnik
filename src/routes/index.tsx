@@ -748,7 +748,7 @@ function RepairInquiryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/10 selection:text-primary overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary/10 selection:text-primary">
       <Toaster position="top-right" richColors />
 
       <main className="w-full max-w-7xl mx-auto px-3 sm:px-6 py-8 md:py-16">
@@ -1044,8 +1044,8 @@ function RepairInquiryPage() {
           </div>
 
           {/* Side Panel */}
-          <aside className="lg:col-span-4 space-y-6">
-            <div className="lg:sticky lg:top-24 space-y-6">
+          <aside className="lg:col-span-4">
+            <div className="lg:sticky lg:top-6 space-y-6">
               <div className="p-8 bg-foreground text-background rounded-2xl space-y-6 animate-reveal [animation-delay:500ms]">
                 <h3 className="text-xl font-bold uppercase tracking-tight">Zakaj iRepair?</h3>
                 <ul className="space-y-6">

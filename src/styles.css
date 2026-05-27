@@ -2,6 +2,10 @@
 @source "../src";
 @import "tw-animate-css";
 
+html, body {
+  overflow-x: hidden;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 /*
