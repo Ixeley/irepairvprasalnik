@@ -60,12 +60,13 @@ const MODELS: Record<string, string[]> = {
   ],
   apple_laptop: [
     // MacBook Air
-    "MacBook Air 11\" (2013)", "MacBook Air 11\" (2015)",
-    "MacBook Air 13\" (2017)", "MacBook Air 13\" (2018)", "MacBook Air 13\" (2019)", "MacBook Air 13\" (2020 Intel)",
+    "MacBook Air 11\" (2011)", "MacBook Air 11\" (2012)", "MacBook Air 11\" (2013)", "MacBook Air 11\" (2014)", "MacBook Air 11\" (2015)",
+    "MacBook Air 13\" (2012)", "MacBook Air 13\" (2013)", "MacBook Air 13\" (2014)", "MacBook Air 13\" (2015)", "MacBook Air 13\" (2016)", "MacBook Air 13\" (2017)", "MacBook Air 13\" (2018)", "MacBook Air 13\" (2019)", "MacBook Air 13\" (2020 Intel)",
     "MacBook Air 13\" M1 (2020)", "MacBook Air 13\" M2 (2022)", "MacBook Air 13\" M3 (2024)",
     "MacBook Air 15\" M2 (2023)", "MacBook Air 15\" M3 (2024)",
     // MacBook Pro 13"
-    "MacBook Pro 13\" (2017)", "MacBook Pro 13\" (2018)", "MacBook Pro 13\" (2019)", "MacBook Pro 13\" (2020 Intel)",
+    "MacBook Pro 13\" (2012)", "MacBook Pro 13\" Retina (2012)", "MacBook Pro 13\" Retina (2013)", "MacBook Pro 13\" Retina (2014)", "MacBook Pro 13\" Retina (2015)",
+    "MacBook Pro 13\" (2016)", "MacBook Pro 13\" (2017)", "MacBook Pro 13\" (2018)", "MacBook Pro 13\" (2019)", "MacBook Pro 13\" (2020 Intel)",
     "MacBook Pro 13\" M1 (2020)", "MacBook Pro 13\" M2 (2022)",
     // MacBook Pro 14"
     "MacBook Pro 14\" M1 Pro (2021)", "MacBook Pro 14\" M1 Max (2021)",
@@ -73,7 +74,7 @@ const MODELS: Record<string, string[]> = {
     "MacBook Pro 14\" M3 (2023)", "MacBook Pro 14\" M3 Pro (2023)", "MacBook Pro 14\" M3 Max (2023)",
     "MacBook Pro 14\" M4 (2024)", "MacBook Pro 14\" M4 Pro (2024)", "MacBook Pro 14\" M4 Max (2024)",
     // MacBook Pro 15"
-    "MacBook Pro 15\" (2017)", "MacBook Pro 15\" (2018)", "MacBook Pro 15\" (2019)",
+    "MacBook Pro 15\" Retina (2012)", "MacBook Pro 15\" Retina (2013)", "MacBook Pro 15\" Retina (2014)", "MacBook Pro 15\" Retina (2015)", "MacBook Pro 15\" (2016)", "MacBook Pro 15\" (2017)", "MacBook Pro 15\" (2018)", "MacBook Pro 15\" (2019)",
     // MacBook Pro 16"
     "MacBook Pro 16\" (2019 Intel)", "MacBook Pro 16\" (2020 Intel)",
     "MacBook Pro 16\" M1 Pro (2021)", "MacBook Pro 16\" M1 Max (2021)",
@@ -750,8 +751,8 @@ function RepairInquiryPage() {
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/10 selection:text-primary overflow-x-hidden">
       <Toaster position="top-right" richColors />
 
-      <main className="max-w-7xl mx-auto px-6 py-12 md:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+      <main className="w-full max-w-7xl mx-auto px-3 sm:px-6 py-8 md:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
           {/* Form Column */}
           <div className="lg:col-span-8 space-y-12 animate-reveal">
             <header className="space-y-4">
