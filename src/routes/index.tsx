@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, type FormEvent } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import { sendInquiryEmail, type InquiryData } from "@/lib/send-email";
@@ -34,6 +34,209 @@ const BRANDS = [
   { id: "lg", label: "LG", slug: "lg", color: "A50034" },
   { id: "motorola", label: "Motorola", slug: "motorola", color: "5C92FA" },
 ];
+
+const MODELS: Record<string, string[]> = {
+  apple_phone: [
+    "iPhone SE (2020)", "iPhone SE (2022)", "iPhone SE (2024)",
+    "iPhone 7", "iPhone 7 Plus",
+    "iPhone 8", "iPhone 8 Plus",
+    "iPhone X", "iPhone XS", "iPhone XS Max", "iPhone XR",
+    "iPhone 11", "iPhone 11 Pro", "iPhone 11 Pro Max",
+    "iPhone 12", "iPhone 12 mini", "iPhone 12 Pro", "iPhone 12 Pro Max",
+    "iPhone 13", "iPhone 13 mini", "iPhone 13 Pro", "iPhone 13 Pro Max",
+    "iPhone 14", "iPhone 14 Plus", "iPhone 14 Pro", "iPhone 14 Pro Max",
+    "iPhone 15", "iPhone 15 Plus", "iPhone 15 Pro", "iPhone 15 Pro Max",
+    "iPhone 16", "iPhone 16 Plus", "iPhone 16 Pro", "iPhone 16 Pro Max",
+  ],
+  apple_tablet: [
+    "iPad 9 (2021)", "iPad 10 (2022)",
+    "iPad mini 5", "iPad mini 6", "iPad mini 7",
+    "iPad Air 4", "iPad Air 5", "iPad Air 11\" M2", "iPad Air 13\" M2",
+    "iPad Pro 11\" (2020)", "iPad Pro 11\" (2021)", "iPad Pro 11\" (2022)", "iPad Pro 11\" M4",
+    "iPad Pro 12.9\" (2020)", "iPad Pro 12.9\" (2021)", "iPad Pro 12.9\" (2022)", "iPad Pro 13\" M4",
+  ],
+  apple_laptop: [
+    "MacBook Air 13\" M1 (2020)", "MacBook Air 13\" M2 (2022)", "MacBook Air 13\" M3 (2024)",
+    "MacBook Air 15\" M2 (2023)", "MacBook Air 15\" M3 (2024)",
+    "MacBook Pro 13\" M1 (2020)", "MacBook Pro 13\" M2 (2022)",
+    "MacBook Pro 14\" M1 Pro (2021)", "MacBook Pro 14\" M2 Pro (2023)", "MacBook Pro 14\" M3 Pro (2023)", "MacBook Pro 14\" M4 Pro (2024)",
+    "MacBook Pro 16\" M1 Pro (2021)", "MacBook Pro 16\" M2 Pro (2023)", "MacBook Pro 16\" M3 Pro (2023)", "MacBook Pro 16\" M4 Pro (2024)",
+  ],
+  samsung_phone: [
+    "Galaxy S20", "Galaxy S20+", "Galaxy S20 Ultra",
+    "Galaxy S21", "Galaxy S21+", "Galaxy S21 Ultra",
+    "Galaxy S22", "Galaxy S22+", "Galaxy S22 Ultra",
+    "Galaxy S23", "Galaxy S23+", "Galaxy S23 Ultra",
+    "Galaxy S24", "Galaxy S24+", "Galaxy S24 Ultra",
+    "Galaxy S25", "Galaxy S25+", "Galaxy S25 Ultra",
+    "Galaxy A14", "Galaxy A15", "Galaxy A25",
+    "Galaxy A32", "Galaxy A33", "Galaxy A34", "Galaxy A35",
+    "Galaxy A51", "Galaxy A52", "Galaxy A52s", "Galaxy A53", "Galaxy A54", "Galaxy A55",
+    "Galaxy A71", "Galaxy A72", "Galaxy A73",
+    "Galaxy Z Fold 3", "Galaxy Z Fold 4", "Galaxy Z Fold 5", "Galaxy Z Fold 6",
+    "Galaxy Z Flip 3", "Galaxy Z Flip 4", "Galaxy Z Flip 5", "Galaxy Z Flip 6",
+  ],
+  samsung_tablet: [
+    "Galaxy Tab S6 Lite", "Galaxy Tab S6",
+    "Galaxy Tab S7", "Galaxy Tab S7+", "Galaxy Tab S7 FE",
+    "Galaxy Tab S8", "Galaxy Tab S8+", "Galaxy Tab S8 Ultra",
+    "Galaxy Tab S9", "Galaxy Tab S9+", "Galaxy Tab S9 Ultra", "Galaxy Tab S9 FE",
+    "Galaxy Tab S10", "Galaxy Tab S10+", "Galaxy Tab S10 Ultra",
+    "Galaxy Tab A7", "Galaxy Tab A7 Lite", "Galaxy Tab A8",
+  ],
+  huawei_phone: [
+    "P30 Lite", "P30", "P30 Pro",
+    "P40 Lite", "P40", "P40 Pro",
+    "P50", "P50 Pro",
+    "Mate 30", "Mate 30 Pro",
+    "Mate 40", "Mate 40 Pro",
+    "Mate 50", "Mate 50 Pro",
+    "Nova 5T", "Nova 7", "Nova 9", "Nova 10",
+    "Y6p", "Y7a", "Y8p",
+  ],
+  huawei_tablet: [
+    "MatePad 10.4", "MatePad 11", "MatePad Pro 10.8", "MatePad Pro 11",
+    "MediaPad M6 8.4", "MediaPad M6 10.8", "MediaPad T10",
+  ],
+  xiaomi_phone: [
+    "Redmi Note 8", "Redmi Note 9", "Redmi Note 9 Pro",
+    "Redmi Note 10", "Redmi Note 10 Pro", "Redmi Note 10S",
+    "Redmi Note 11", "Redmi Note 11 Pro", "Redmi Note 11S",
+    "Redmi Note 12", "Redmi Note 12 Pro", "Redmi Note 12S",
+    "Redmi Note 13", "Redmi Note 13 Pro", "Redmi Note 13 Pro+",
+    "Redmi Note 14", "Redmi Note 14 Pro",
+    "Redmi 9", "Redmi 9A", "Redmi 10", "Redmi 12", "Redmi 13",
+    "Mi 11", "Mi 11 Ultra", "Mi 11 Lite",
+    "Xiaomi 12", "Xiaomi 12 Pro", "Xiaomi 12 Lite",
+    "Xiaomi 13", "Xiaomi 13 Pro", "Xiaomi 13 Lite",
+    "Xiaomi 14", "Xiaomi 14 Pro",
+    "POCO X3 NFC", "POCO X3 Pro", "POCO X5", "POCO X5 Pro", "POCO X6", "POCO X6 Pro",
+    "POCO F3", "POCO F4", "POCO F5",
+    "POCO M3", "POCO M4 Pro", "POCO M5",
+  ],
+  xiaomi_tablet: [
+    "Xiaomi Pad 5", "Xiaomi Pad 5 Pro",
+    "Xiaomi Pad 6", "Xiaomi Pad 6 Pro",
+    "Redmi Pad", "Redmi Pad SE",
+  ],
+  oneplus_phone: [
+    "OnePlus 8", "OnePlus 8 Pro", "OnePlus 8T",
+    "OnePlus 9", "OnePlus 9 Pro", "OnePlus 9R",
+    "OnePlus 10 Pro", "OnePlus 10T",
+    "OnePlus 11", "OnePlus 11R",
+    "OnePlus 12", "OnePlus 12R",
+    "Nord CE 2", "Nord CE 2 Lite", "Nord CE 3", "Nord CE 3 Lite",
+    "Nord 2T", "Nord 3", "Nord 4",
+  ],
+  google_phone: [
+    "Pixel 4", "Pixel 4 XL", "Pixel 4a",
+    "Pixel 5", "Pixel 5a",
+    "Pixel 6", "Pixel 6 Pro", "Pixel 6a",
+    "Pixel 7", "Pixel 7 Pro", "Pixel 7a",
+    "Pixel 8", "Pixel 8 Pro", "Pixel 8a",
+    "Pixel 9", "Pixel 9 Pro", "Pixel 9 Pro XL", "Pixel 9 Pro Fold",
+  ],
+  google_tablet: [
+    "Pixel Tablet",
+  ],
+  sony_phone: [
+    "Xperia 10 III", "Xperia 10 IV", "Xperia 10 V", "Xperia 10 VI",
+    "Xperia 5 II", "Xperia 5 III", "Xperia 5 IV", "Xperia 5 V",
+    "Xperia 1 II", "Xperia 1 III", "Xperia 1 IV", "Xperia 1 V", "Xperia 1 VI",
+  ],
+  nokia_phone: [
+    "Nokia 5.4", "Nokia 6.2", "Nokia 7.2",
+    "Nokia G10", "Nokia G20", "Nokia G21", "Nokia G22", "Nokia G42", "Nokia G60",
+    "Nokia X10", "Nokia X20", "Nokia X30",
+    "Nokia C21", "Nokia C22", "Nokia C32",
+    "Nokia 3.4", "Nokia 4.2",
+  ],
+  motorola_phone: [
+    "Moto G8 Plus", "Moto G8 Power",
+    "Moto G9 Plus", "Moto G9 Play", "Moto G9 Power",
+    "Moto G10", "Moto G20", "Moto G30", "Moto G31",
+    "Moto G41", "Moto G51", "Moto G52", "Moto G53", "Moto G54",
+    "Moto G62", "Moto G72", "Moto G82",
+    "Edge 20", "Edge 20 Pro", "Edge 30", "Edge 30 Pro",
+    "Edge 40", "Edge 40 Pro", "Edge 50", "Edge 50 Pro",
+  ],
+  hp_laptop: [
+    "HP EliteBook 840 G7", "HP EliteBook 840 G8", "HP EliteBook 840 G9", "HP EliteBook 840 G10",
+    "HP EliteBook 850 G7", "HP EliteBook 850 G8",
+    "HP ProBook 450 G7", "HP ProBook 450 G8", "HP ProBook 450 G9", "HP ProBook 450 G10",
+    "HP ProBook 640 G8", "HP ProBook 650 G5",
+    "HP Pavilion 14", "HP Pavilion 15", "HP Pavilion x360 14",
+    "HP Envy 13", "HP Envy 14", "HP Envy 15", "HP Envy x360 13", "HP Envy x360 15",
+    "HP Spectre x360 13", "HP Spectre x360 14",
+    "HP Omen 15", "HP Omen 16", "HP Omen 17",
+    "HP Laptop 15s", "HP 250 G8", "HP 255 G8", "HP 255 G9",
+  ],
+  dell_laptop: [
+    "Dell XPS 13 (9310)", "Dell XPS 13 (9315)", "Dell XPS 13 Plus (9320)",
+    "Dell XPS 15 (9510)", "Dell XPS 15 (9520)", "Dell XPS 15 (9530)",
+    "Dell XPS 17 (9710)", "Dell XPS 17 (9730)",
+    "Dell Inspiron 15 3000", "Dell Inspiron 15 5000", "Dell Inspiron 15 7000",
+    "Dell Inspiron 14 5000", "Dell Inspiron 14 7000",
+    "Dell Inspiron 13 5000", "Dell Inspiron 13 7000",
+    "Dell Latitude 5420", "Dell Latitude 5520",
+    "Dell Latitude 7420", "Dell Latitude 7520",
+    "Dell Latitude 5440", "Dell Latitude 5540",
+    "Dell Vostro 15 3500", "Dell Vostro 15 5000",
+    "Dell G15 (5510)", "Dell G15 (5515)", "Dell G16 (7620)",
+  ],
+  lenovo_laptop: [
+    "ThinkPad X1 Carbon Gen 9", "ThinkPad X1 Carbon Gen 10", "ThinkPad X1 Carbon Gen 11", "ThinkPad X1 Carbon Gen 12",
+    "ThinkPad X1 Yoga Gen 6", "ThinkPad X1 Yoga Gen 7", "ThinkPad X1 Yoga Gen 8",
+    "ThinkPad T14 Gen 2", "ThinkPad T14 Gen 3", "ThinkPad T14 Gen 4",
+    "ThinkPad T14s Gen 2", "ThinkPad T14s Gen 3",
+    "ThinkPad E14 Gen 3", "ThinkPad E14 Gen 4", "ThinkPad E14 Gen 5",
+    "ThinkPad E15 Gen 3", "ThinkPad E15 Gen 4",
+    "IdeaPad 5 14", "IdeaPad 5 15", "IdeaPad Slim 5", "IdeaPad Slim 3",
+    "Yoga 7 14", "Yoga 7 16", "Yoga 9 14",
+    "Legion 5 15", "Legion 5 16", "Legion 5 Pro 16",
+    "Legion 7 16", "IdeaPad Gaming 3",
+  ],
+  asus_laptop: [
+    "ZenBook 14 UX425", "ZenBook 14 UX3402", "ZenBook 13 UX325",
+    "ZenBook Pro 15 UX535", "ZenBook Pro 16X UX7602",
+    "ZenBook Duo 14", "ZenBook Flip 13", "ZenBook Flip 15",
+    "VivoBook 15", "VivoBook 14", "VivoBook S15 OLED", "VivoBook S14 OLED",
+    "VivoBook Pro 15 OLED", "VivoBook Pro 16 OLED",
+    "ROG Zephyrus G14 (2022)", "ROG Zephyrus G14 (2023)", "ROG Zephyrus G14 (2024)",
+    "ROG Zephyrus G15", "ROG Zephyrus M16",
+    "ROG Strix G15", "ROG Strix G17",
+    "ROG Flow X13", "ROG Flow X16",
+    "TUF Gaming A15", "TUF Gaming A17",
+    "TUF Gaming F15", "TUF Gaming F17",
+  ],
+  acer_laptop: [
+    "Aspire 3 A315", "Aspire 5 A515", "Aspire 7 A715",
+    "Swift 3 SF314", "Swift 5 SF514", "Swift X SFX14",
+    "Swift Go 14", "Swift Go 16",
+    "Nitro 5 AN515", "Nitro 5 AN517", "Nitro V 15", "Nitro V 16",
+    "Predator Helios 300", "Predator Helios 16", "Predator Helios Neo 16",
+    "TravelMate P2", "TravelMate P4",
+    "Extensa 15",
+  ],
+  msi_laptop: [
+    "MSI Modern 14", "MSI Modern 15",
+    "MSI Prestige 14 Evo", "MSI Prestige 15",
+    "MSI GF63 Thin", "MSI GF65 Thin",
+    "MSI GP66 Leopard", "MSI GP76 Leopard",
+    "MSI GS66 Stealth", "MSI GS76 Stealth",
+    "MSI GE66 Raider", "MSI GE76 Raider",
+    "MSI Titan GT77",
+    "MSI Creator 15", "MSI Creator 17",
+    "MSI Cyborg 14", "MSI Cyborg 15",
+    "MSI Katana GF66", "MSI Katana 15",
+    "MSI Stealth 14", "MSI Stealth 15", "MSI Stealth 16",
+  ],
+  lg_laptop: [
+    "LG Gram 14", "LG Gram 15", "LG Gram 16", "LG Gram 17",
+    "LG Gram 2-in-1 14", "LG Gram 2-in-1 16",
+    "LG UltraPC 14", "LG UltraPC 16",
+  ],
+};
 
 const COMMON_ISSUES: Record<DeviceType, string[]> = {
   phone: [
@@ -79,6 +282,30 @@ function RepairInquiryPage() {
   const [phone, setPhone] = useState("");
   const [gdpr, setGdpr] = useState(false);
   const [sending, setSending] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  useEffect(() => {
+    const ua = navigator.userAgent;
+    if (/iPad/.test(ua) || (/Android/.test(ua) && !/Mobile/.test(ua))) {
+      setDevice("tablet");
+      if (/iPad/.test(ua)) setBrand("apple");
+    } else if (/iPhone|iPod/.test(ua)) {
+      setDevice("phone");
+      setBrand("apple");
+    } else if (/Android/.test(ua)) {
+      setDevice("phone");
+    } else {
+      setDevice("laptop");
+      if (/Macintosh/.test(ua)) setBrand("apple");
+    }
+  }, []);
+
+  const modelSuggestions = (() => {
+    const list = MODELS[`${brand}_${device}`] ?? [];
+    if (!model.trim()) return list.slice(0, 8);
+    return list.filter((m) => m.toLowerCase().includes(model.toLowerCase())).slice(0, 8);
+  })();
 
   const toggleIssue = (issue: string) =>
     setIssues((prev) =>
@@ -104,9 +331,7 @@ function RepairInquiryPage() {
     try {
       const payload: InquiryData = { device, brand, model, issues, problem, name, email, phone };
       await sendInquiryEmail(payload);
-      toast.success("Povpraševanje uspešno poslano!", {
-        description: "Naši tehniki se vam bodo oglasili v najkrajšem možnem času.",
-      });
+      setSubmitted(true);
       setModel("");
       setIssues([]);
       setProblem("");
@@ -235,13 +460,37 @@ function RepairInquiryPage() {
                     <label className="block text-xs font-bold uppercase mb-1.5 text-muted-foreground">
                       Model naprave
                     </label>
-                    <input
-                      type="text"
-                      value={model}
-                      onChange={(e) => setModel(e.target.value)}
-                      placeholder="npr. iPhone 13 Pro ali MacBook Air M1"
-                      className="w-full bg-card border border-border px-4 py-3 rounded-md outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                    />
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={model}
+                        onChange={(e) => {
+                          setModel(e.target.value);
+                          setShowSuggestions(true);
+                        }}
+                        onFocus={() => setShowSuggestions(true)}
+                        onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+                        placeholder="npr. iPhone 15 Pro ali Samsung Galaxy A54"
+                        autoComplete="off"
+                        className="w-full bg-card border border-border px-4 py-3 rounded-md outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                      />
+                      {showSuggestions && modelSuggestions.length > 0 && (
+                        <ul className="absolute z-50 left-0 right-0 top-full mt-1 bg-white border border-border rounded-md shadow-lg max-h-52 overflow-y-auto">
+                          {modelSuggestions.map((s) => (
+                            <li
+                              key={s}
+                              onMouseDown={() => {
+                                setModel(s);
+                                setShowSuggestions(false);
+                              }}
+                              className="px-4 py-2.5 text-sm hover:bg-primary/5 cursor-pointer border-b border-border/50 last:border-0"
+                            >
+                              {s}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
                   </div>
                   <div>
                     <label className="block text-xs font-bold uppercase mb-2 text-muted-foreground">
@@ -365,6 +614,31 @@ function RepairInquiryPage() {
               >
                 {sending ? "Pošiljam..." : "Pošlji povpraševanje"}
               </button>
+
+              {submitted && (
+                <div className="p-6 bg-green-50 border border-green-200 rounded-xl flex gap-4 items-start">
+                  <div className="size-10 bg-green-100 rounded-full flex items-center justify-center shrink-0 mt-0.5">
+                    <svg
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      className="size-5 text-green-600"
+                    >
+                      <path d="M4 10l4.5 4.5L16 6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-green-900 text-lg">
+                      Povpraševanje uspešno poslano!
+                    </h3>
+                    <p className="text-green-700 text-sm mt-1">
+                      Naši tehniki se vam bodo oglasili v najkrajšem možnem času. Odgovor
+                      pričakujte na vaš e-poštni naslov.
+                    </p>
+                  </div>
+                </div>
+              )}
             </form>
           </div>
 
@@ -437,7 +711,6 @@ function RepairInquiryPage() {
           </aside>
         </div>
       </main>
-
     </div>
   );
 }
