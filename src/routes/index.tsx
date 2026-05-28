@@ -766,14 +766,14 @@ function RepairInquiryPage() {
           {/* Form Column */}
           <div className="lg:col-span-8 space-y-12 animate-reveal px-3 sm:px-0">
             <header className="space-y-4">
-              <div className="text-xs font-mono text-primary uppercase tracking-widest">
+              <div className="text-sm font-mono text-primary uppercase tracking-widest">
                 Spletni obrazec za servis
               </div>
-              <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-balance uppercase">
+              <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-balance uppercase">
                 Oddajte povpraševanje{" "}
                 <span className="text-primary">brezplačno</span>
               </h1>
-              <p className="text-muted-foreground max-w-xl text-lg text-pretty">
+              <p className="text-muted-foreground max-w-xl text-xl text-pretty">
                 Izpolnite spodnje podatke o vaši napravi in naši tehniki vam bodo v najkrajšem
                 možnem času poslali neobvezujočo informativno ponudbo.
               </p>
@@ -783,10 +783,10 @@ function RepairInquiryPage() {
               {/* 01 Device Type */}
               <section className="space-y-6">
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-xs size-6 border border-border flex items-center justify-center rounded-full">
+                  <span className="font-mono text-sm size-8 border border-border flex items-center justify-center rounded-full">
                     01
                   </span>
-                  <h2 className="font-bold uppercase tracking-wide">Vrsta naprave</h2>
+                  <h2 className="font-bold uppercase tracking-wide text-lg">Vrsta naprave</h2>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {DEVICE_TYPES.map((d) => {
@@ -802,8 +802,8 @@ function RepairInquiryPage() {
                             : "border-border hover:border-primary/50"
                         }`}
                       >
-                        <span className="block font-bold text-sm uppercase">{d.title}</span>
-                        <span className="block text-xs text-muted-foreground mt-1">{d.sub}</span>
+                        <span className="block font-bold text-base uppercase">{d.title}</span>
+                        <span className="block text-sm text-muted-foreground mt-1">{d.sub}</span>
                       </button>
                     );
                   })}
@@ -813,10 +813,10 @@ function RepairInquiryPage() {
               {/* 02 Brand */}
               <section className="space-y-6 animate-reveal [animation-delay:100ms]">
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-xs size-6 border border-border flex items-center justify-center rounded-full">
+                  <span className="font-mono text-sm size-8 border border-border flex items-center justify-center rounded-full">
                     02
                   </span>
-                  <h2 className="font-bold uppercase tracking-wide">Znamka naprave</h2>
+                  <h2 className="font-bold uppercase tracking-wide text-lg">Znamka naprave</h2>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                   {BRANDS.map((b) => {
@@ -861,14 +861,14 @@ function RepairInquiryPage() {
               {/* 03 Details */}
               <section className="space-y-6 animate-reveal [animation-delay:200ms]">
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-xs size-6 border border-border flex items-center justify-center rounded-full">
+                  <span className="font-mono text-sm size-8 border border-border flex items-center justify-center rounded-full">
                     03
                   </span>
-                  <h2 className="font-bold uppercase tracking-wide">Podrobnosti o težavi</h2>
+                  <h2 className="font-bold uppercase tracking-wide text-lg">Podrobnosti o težavi</h2>
                 </div>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-xs font-bold uppercase mb-1.5 text-muted-foreground">
+                    <label className="block text-sm font-bold uppercase mb-2 text-muted-foreground">
                       Model naprave
                     </label>
                     <div className="relative">
@@ -883,7 +883,7 @@ function RepairInquiryPage() {
                         onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
                         placeholder="npr. iPhone 15 Pro ali Samsung Galaxy A54"
                         autoComplete="off"
-                        className="w-full bg-card border border-border px-4 py-3 rounded-md outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                        className="w-full bg-card border border-border px-5 py-4 text-base rounded-md outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                       />
                       {showSuggestions && modelSuggestions.length > 0 && (
                         <ul className="absolute z-50 left-0 right-0 top-full mt-1 bg-white border border-border rounded-md shadow-lg max-h-52 overflow-y-auto">
@@ -894,7 +894,7 @@ function RepairInquiryPage() {
                                 setModel(s);
                                 setShowSuggestions(false);
                               }}
-                              className="px-4 py-2.5 text-sm hover:bg-primary/5 cursor-pointer border-b border-border/50 last:border-0"
+                              className="px-5 py-3 text-base hover:bg-primary/5 cursor-pointer border-b border-border/50 last:border-0"
                             >
                               {s}
                             </li>
@@ -904,9 +904,9 @@ function RepairInquiryPage() {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-xs font-bold uppercase mb-2 text-muted-foreground">
+                    <label className="block text-sm font-bold uppercase mb-2 text-muted-foreground">
                       Najpogostejše napake{" "}
-                      <span className="font-mono text-[10px] text-muted-foreground/70 normal-case">
+                      <span className="font-mono text-xs text-muted-foreground/70 normal-case">
                         (izberite eno ali več)
                       </span>
                     </label>
@@ -918,7 +918,7 @@ function RepairInquiryPage() {
                             key={issue}
                             type="button"
                             onClick={() => toggleIssue(issue)}
-                            className={`flex items-center gap-3 text-left px-3 py-2.5 border rounded-md transition-all text-sm ${
+                            className={`flex items-center gap-3 text-left px-4 py-3.5 border rounded-md transition-all text-base ${
                               active
                                 ? "border-primary bg-primary/5 text-foreground"
                                 : "border-border hover:border-primary/50 text-muted-foreground"
@@ -948,9 +948,9 @@ function RepairInquiryPage() {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-xs font-bold uppercase mb-1.5 text-muted-foreground">
+                    <label className="block text-sm font-bold uppercase mb-2 text-muted-foreground">
                       Drug opis težave{" "}
-                      <span className="font-mono text-[10px] text-muted-foreground/70 normal-case">
+                      <span className="font-mono text-xs text-muted-foreground/70 normal-case">
                         (če napake ni na seznamu)
                       </span>
                     </label>
@@ -959,13 +959,13 @@ function RepairInquiryPage() {
                       value={problem}
                       onChange={(e) => setProblem(e.target.value)}
                       placeholder="Opišite napako podrobneje ali navedite težavo, ki ni na seznamu zgoraj..."
-                      className="w-full bg-card border border-border px-4 py-3 rounded-md outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none"
+                      className="w-full bg-card border border-border px-5 py-4 text-base rounded-md outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none"
                     />
                   </div>
                   <label className="block group cursor-pointer">
                     <input type="file" accept="image/*" className="sr-only" />
                     <div className="w-full h-24 bg-muted/50 border border-dashed border-border rounded-md flex flex-col items-center justify-center group-hover:bg-muted transition-colors">
-                      <span className="text-xs font-mono text-muted-foreground uppercase">
+                      <span className="text-sm font-mono text-muted-foreground uppercase">
                         Naloži fotografijo napake (neobvezno)
                       </span>
                     </div>
@@ -976,10 +976,10 @@ function RepairInquiryPage() {
               {/* 04 Contact */}
               <section className="space-y-6 animate-reveal [animation-delay:300ms]">
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-xs size-6 border border-border flex items-center justify-center rounded-full">
+                  <span className="font-mono text-sm size-8 border border-border flex items-center justify-center rounded-full">
                     04
                   </span>
-                  <h2 className="font-bold uppercase tracking-wide">Kontaktni podatki</h2>
+                  <h2 className="font-bold uppercase tracking-wide text-lg">Kontaktni podatki</h2>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <input
@@ -987,14 +987,14 @@ function RepairInquiryPage() {
                     placeholder="Ime in priimek"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full bg-card border border-border px-4 py-3 rounded-md outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                    className="w-full bg-card border border-border px-5 py-4 text-base rounded-md outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                   />
                   <input
                     type="email"
                     placeholder="E-poštni naslov"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-card border border-border px-4 py-3 rounded-md outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                    className="w-full bg-card border border-border px-5 py-4 text-base rounded-md outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                   />
                   <input
                     type="tel"
@@ -1011,7 +1011,7 @@ function RepairInquiryPage() {
                     onChange={(e) => setGdpr(e.target.checked)}
                     className="mt-1 size-4 rounded border-border text-primary focus:ring-primary"
                   />
-                  <span className="text-xs text-muted-foreground leading-relaxed">
+                  <span className="text-sm text-muted-foreground leading-relaxed">
                     Strinjam se s pogoji poslovanja in dovoljujem obdelavo osebnih podatkov za
                     namen priprave ponudbe (GDPR).
                   </span>
