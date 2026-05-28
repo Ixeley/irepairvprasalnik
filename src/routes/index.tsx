@@ -761,8 +761,8 @@ function RepairInquiryPage() {
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/10 selection:text-primary">
       <Toaster position="top-right" richColors />
 
-      <main className="w-full max-w-[1400px] mx-auto px-0 sm:px-6 md:px-10 py-6 md:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
+      <main className="w-full px-4 sm:px-8 md:px-16 xl:px-24 py-6 md:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Form Column */}
           <div className="lg:col-span-8 space-y-12 animate-reveal px-3 sm:px-0">
             <header className="space-y-4">
