@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect, type FormEvent } from "react";
+import { useState, useEffect, useRef, type FormEvent } from "react";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import { sendInquiryEmail, type InquiryData } from "@/lib/send-email";
@@ -673,6 +673,9 @@ function RepairInquiryPage() {
   const [sending, setSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [sidebarTop, setSidebarTop] = useState(24);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const asideRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const sendHeight = () => {
@@ -682,6 +685,24 @@ function RepairInquiryPage() {
     const observer = new ResizeObserver(sendHeight);
     observer.observe(document.body);
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const handleMessage = (e: MessageEvent) => {
+      if (e.data && typeof e.data.scrollY === "number") {
+        const aside = asideRef.current;
+        if (!aside) return;
+        const asideRect = aside.getBoundingClientRect();
+        const asideOffsetTop = aside.offsetTop;
+        const sidebar = sidebarRef.current;
+        const sidebarHeight = sidebar ? sidebar.offsetHeight : 0;
+        const maxTop = aside.offsetHeight - sidebarHeight;
+        const desired = e.data.scrollY - asideOffsetTop + 24;
+        setSidebarTop(Math.max(0, Math.min(desired, maxTop)));
+      }
+    };
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
   }, []);
 
   useEffect(() => {
@@ -762,18 +783,18 @@ function RepairInquiryPage() {
       <Toaster position="top-right" richColors />
 
       <main className="w-full px-4 md:px-8 py-6 md:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+        <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Form Column */}
           <div className="lg:col-span-8 space-y-12 animate-reveal px-3 sm:px-0">
             <header className="space-y-4">
               <div className="text-sm font-mono text-primary uppercase tracking-widest">
                 Spletni obrazec za servis
               </div>
-              <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-balance uppercase">
+              <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-balance uppercase">
                 Oddajte povpraševanje{" "}
                 <span className="text-primary">brezplačno</span>
               </h1>
-              <p className="text-muted-foreground max-w-xl text-xl text-pretty">
+              <p className="text-muted-foreground max-w-2xl text-xl text-pretty">
                 Izpolnite spodnje podatke o vaši napravi in naši tehniki vam bodo v najkrajšem
                 možnem času poslali neobvezujočo informativno ponudbo.
               </p>
@@ -1054,10 +1075,10 @@ function RepairInquiryPage() {
           </div>
 
           {/* Side Panel */}
-          <aside className="lg:col-span-4 px-3 sm:px-0">
-            <div className="lg:sticky lg:top-6 space-y-6">
+          <aside ref={asideRef} className="lg:col-span-4 px-3 sm:px-0">
+            <div ref={sidebarRef} className="lg:absolute space-y-6" style={{ top: sidebarTop, width: "inherit" }}>
               <div className="p-8 bg-foreground text-background rounded-2xl space-y-6 animate-reveal [animation-delay:500ms]">
-                <h3 className="text-xl font-bold uppercase tracking-tight">Zakaj iRepair?</h3>
+                <h3 className="text-2xl font-bold uppercase tracking-tight">Zakaj iRepair?</h3>
                 <ul className="space-y-6">
                   {[
                     {
