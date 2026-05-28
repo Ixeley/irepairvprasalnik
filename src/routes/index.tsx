@@ -794,7 +794,7 @@ function RepairInquiryPage() {
               <div className="text-sm font-mono text-primary uppercase tracking-widest">
                 Spletni obrazec za servis
               </div>
-              <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-balance uppercase">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-balance uppercase break-words">
                 Oddajte povpraševanje{" "}
                 <span className="text-primary">brezplačno</span>
               </h1>
