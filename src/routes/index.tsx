@@ -1073,7 +1073,7 @@ function RepairInquiryPage() {
                     {
                       tag: "12m",
                       title: "Garancija",
-                      desc: "Na vsa opravljena popravila nudimo do 12 mesecev garancije.",
+                      desc: "Na vsa opravljena popravila nudimo do 3 mesece garancije.",
                     },
                     {
                       tag: "📦",
@@ -1094,7 +1094,7 @@ function RepairInquiryPage() {
                 </ul>
                 <div className="pt-6 border-t border-background/10 text-center">
                   <p className="text-[10px] font-mono text-background/40 uppercase">
-                    iRepair Tehnična Podpora d.o.o.
+                    iRepair Servis
                   </p>
                 </div>
               </div>
