@@ -1127,12 +1127,12 @@ function RepairInquiryPage() {
                     },
                   ].map((f) => (
                     <li key={f.title} className="flex gap-4 items-start">
-                      <div className="shrink-0 size-12 border border-background/20 flex items-center justify-center rounded-lg">
-                        <span className="font-mono text-sm">{f.tag}</span>
+                      <div className="shrink-0 size-12 bg-white/10 flex items-center justify-center rounded-2xl">
+                        <span className={/^\p{Emoji}/u.test(f.tag) ? "text-2xl leading-none" : "font-bold font-mono text-xs tracking-tight text-background"}>{f.tag}</span>
                       </div>
-                      <div>
-                        <h4 className="font-bold text-base uppercase">{f.title}</h4>
-                        <p className="text-background/60 text-sm mt-1">{f.desc}</p>
+                      <div className="pt-1">
+                        <h4 className="font-bold text-base uppercase leading-tight">{f.title}</h4>
+                        <p className="text-background/55 text-sm mt-1 leading-snug">{f.desc}</p>
                       </div>
                     </li>
                   ))}
