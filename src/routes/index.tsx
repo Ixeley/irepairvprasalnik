@@ -675,6 +675,16 @@ function RepairInquiryPage() {
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   useEffect(() => {
+    const sendHeight = () => {
+      window.parent.postMessage({ iframeHeight: document.body.scrollHeight }, "*");
+    };
+    sendHeight();
+    const observer = new ResizeObserver(sendHeight);
+    observer.observe(document.body);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     const ua = navigator.userAgent;
     const detectAndroidBrand = () => {
       if (/SM-/.test(ua)) return "samsung";
