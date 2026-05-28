@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect, type FormEvent } from "react";
+import { useState, useEffect, useRef, type FormEvent } from "react";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import { sendInquiryEmail, type InquiryData } from "@/lib/send-email";
@@ -673,6 +673,11 @@ function RepairInquiryPage() {
   const [sending, setSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [sidebarTop, setSidebarTop] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const asideRef = useRef<HTMLElement>(null);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const iframeTopRef = useRef(0);
 
   useEffect(() => {
     const sendHeight = () => {
@@ -683,6 +688,29 @@ function RepairInquiryPage() {
     const observer = new ResizeObserver(sendHeight);
     observer.observe(document.documentElement);
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 1024);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  useEffect(() => {
+    const handler = (e: MessageEvent) => {
+      if (typeof e.data?.scrollY !== "number") return;
+      if (typeof e.data?.iframeTop === "number") iframeTopRef.current = e.data.iframeTop;
+      const aside = asideRef.current;
+      const sidebar = sidebarRef.current;
+      if (!aside || !sidebar) return;
+      const scrolledIn = e.data.scrollY - iframeTopRef.current;
+      const desired = scrolledIn - aside.offsetTop + 24;
+      const max = aside.offsetHeight - sidebar.offsetHeight - 16;
+      setSidebarTop(Math.max(0, Math.min(desired, max)));
+    };
+    window.addEventListener("message", handler);
+    return () => window.removeEventListener("message", handler);
   }, []);
 
   useEffect(() => {
@@ -1055,8 +1083,8 @@ function RepairInquiryPage() {
           </div>
 
           {/* Side Panel */}
-          <aside className="lg:col-span-4 px-3 sm:px-0">
-            <div className="lg:sticky lg:top-6 space-y-6">
+          <aside ref={asideRef} className="lg:col-span-4 px-3 sm:px-0" style={isDesktop ? { position: "relative" } : {}}>
+            <div ref={sidebarRef} className="space-y-6" style={isDesktop ? { position: "absolute", top: sidebarTop, left: 0, right: 0 } : {}}>
               <div className="p-10 bg-foreground text-background rounded-2xl space-y-8 animate-reveal [animation-delay:500ms]">
                 <h3 className="text-2xl font-bold uppercase tracking-tight">Zakaj iRepair?</h3>
                 <ul className="space-y-8">
