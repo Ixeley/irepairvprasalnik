@@ -765,7 +765,7 @@ function RepairInquiryPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Form Column */}
           <div className="lg:col-span-8 space-y-12 animate-reveal px-3 sm:px-0">
-            <header className="space-y-4">
+            <header className="space-y-4 text-center md:text-left">
               <div className="text-sm font-mono text-primary uppercase tracking-widest">
                 Spletni obrazec za servis
               </div>
@@ -773,7 +773,7 @@ function RepairInquiryPage() {
                 Oddajte povpraševanje{" "}
                 <span className="text-primary">brezplačno</span>
               </h1>
-              <p className="text-muted-foreground max-w-2xl text-xl text-pretty">
+              <p className="text-muted-foreground max-w-2xl text-xl text-pretty mx-auto md:mx-0">
                 Izpolnite spodnje podatke o vaši napravi in naši tehniki vam bodo v najkrajšem
                 možnem času poslali neobvezujočo informativno ponudbo.
               </p>
