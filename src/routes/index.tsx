@@ -1073,7 +1073,7 @@ function RepairInquiryPage() {
                     {
                       tag: "3m",
                       title: "Garancija",
-                      desc: "Na vsa opravljena popravila nudimo do 3 mesece garancije.",
+                      desc: "Na vsa opravljena popravila nudimo najmanj 3 mesece garancije.",
                     },
                     {
                       tag: "📦",
@@ -1082,12 +1082,12 @@ function RepairInquiryPage() {
                     },
                   ].map((f) => (
                     <li key={f.title} className="flex gap-4">
-                      <div className="shrink-0 size-10 border border-background/20 flex items-center justify-center rounded-lg">
-                        <span className="font-mono text-xs">{f.tag}</span>
+                      <div className="shrink-0 size-12 border border-background/20 flex items-center justify-center rounded-lg">
+                        <span className="font-mono text-sm">{f.tag}</span>
                       </div>
                       <div>
-                        <h4 className="font-bold text-sm uppercase">{f.title}</h4>
-                        <p className="text-background/60 text-xs mt-1">{f.desc}</p>
+                        <h4 className="font-bold text-base uppercase">{f.title}</h4>
+                        <p className="text-background/60 text-sm mt-1">{f.desc}</p>
                       </div>
                     </li>
                   ))}
