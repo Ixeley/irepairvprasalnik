@@ -1086,39 +1086,49 @@ function RepairInquiryPage() {
                 <ul className="space-y-8">
                   {[
                     {
-                      icon: "⚡",
-                      title: "Express popravila",
-                      desc: "Menjava zaslona že v 20 minutah, večina popravil isti dan.",
+                      tag: "⚡",
+                      title: "Hiter odziv",
+                      desc: "Večina popravil je zaključenih v istem delovnem dnevu.",
                     },
                     {
-                      icon: "🔬",
-                      title: "Brezplačna diagnostika",
-                      desc: "Če ni potrebno razstaviti naprave, ne plačate ničesar.",
+                      tag: "€0",
+                      title: "Brezplačna hitra diagnostika",
+                      desc: "Hitra brezplačna diagnostika — če ni potrebno razstaviti naprave, ne plačate ničesar.",
                     },
                     {
-                      icon: "🛡️",
+                      tag: "3m",
                       title: "Garancija",
                       desc: "Na vsa opravljena popravila nudimo najmanj 3 mesece garancije.",
                     },
                     {
-                      icon: "🔧",
+                      tag: "📦",
+                      title: "Brezplačen prevzem",
+                      desc: "Pošljite napravo po pošti ali naročite naš prevzem na domu.",
+                    },
+                    {
+                      tag: "10k+",
+                      title: "Popravljenih naprav",
+                      desc: "Zaupalo nam je že več kot 10.000 strank z vsega sveta.",
+                    },
+                    {
+                      tag: "10+",
+                      title: "Let izkušenj",
+                      desc: "Več kot 10 let strokovnih izkušenj z vsemi vrstami naprav.",
+                    },
+                    {
+                      tag: "🔧",
                       title: "Popravilo matičnih plošč",
                       desc: "Specializirani za board-level repair in microsoldering.",
                     },
                     {
-                      icon: "💾",
-                      title: "Reševanje podatkov",
-                      desc: "Reševanje podatkov tudi iz nedelujočih naprav.",
-                    },
-                    {
-                      icon: "✅",
+                      tag: "✅",
                       title: "Originalni deli",
                       desc: "Možnost vgradnje originalnih Apple Service Pack delov.",
                     },
                   ].map((f) => (
                     <li key={f.title} className="flex gap-4 items-start">
-                      <div className="shrink-0 size-11 bg-background/10 flex items-center justify-center rounded-xl text-xl">
-                        {f.icon}
+                      <div className="shrink-0 size-12 border border-background/20 flex items-center justify-center rounded-lg">
+                        <span className="font-mono text-sm">{f.tag}</span>
                       </div>
                       <div>
                         <h4 className="font-bold text-base uppercase">{f.title}</h4>
