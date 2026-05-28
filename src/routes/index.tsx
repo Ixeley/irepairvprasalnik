@@ -677,7 +677,6 @@ function RepairInquiryPage() {
   const [isDesktop, setIsDesktop] = useState(false);
   const asideRef = useRef<HTMLElement>(null);
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const iframeTopRef = useRef(0);
 
   useEffect(() => {
     const sendHeight = () => {
@@ -700,14 +699,11 @@ function RepairInquiryPage() {
   useEffect(() => {
     const handler = (e: MessageEvent) => {
       if (typeof e.data?.scrollY !== "number") return;
-      if (typeof e.data?.iframeTop === "number") iframeTopRef.current = e.data.iframeTop;
       const aside = asideRef.current;
       const sidebar = sidebarRef.current;
       if (!aside || !sidebar) return;
-      const scrolledIn = e.data.scrollY - iframeTopRef.current;
-      const desired = scrolledIn - aside.offsetTop + 24;
       const max = aside.offsetHeight - sidebar.offsetHeight - 16;
-      setSidebarTop(Math.max(0, Math.min(desired, max)));
+      setSidebarTop(Math.max(0, Math.min(e.data.scrollY, max)));
     };
     window.addEventListener("message", handler);
     return () => window.removeEventListener("message", handler);
@@ -1084,7 +1080,7 @@ function RepairInquiryPage() {
 
           {/* Side Panel */}
           <aside ref={asideRef} className="lg:col-span-4 px-3 sm:px-0" style={isDesktop ? { position: "relative" } : {}}>
-            <div ref={sidebarRef} className="space-y-6" style={isDesktop ? { position: "absolute", top: sidebarTop, left: 0, right: 0 } : {}}>
+            <div ref={sidebarRef} className="space-y-6" style={isDesktop ? { position: "absolute", top: sidebarTop, left: 0, right: 0, transition: "top 0.12s linear" } : {}}>
               <div className="p-10 bg-foreground text-background rounded-2xl space-y-8 animate-reveal [animation-delay:500ms]">
                 <h3 className="text-2xl font-bold uppercase tracking-tight">Zakaj iRepair?</h3>
                 <ul className="space-y-8">
