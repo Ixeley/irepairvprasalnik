@@ -676,11 +676,12 @@ function RepairInquiryPage() {
 
   useEffect(() => {
     const sendHeight = () => {
-      window.parent.postMessage({ iframeHeight: document.body.scrollHeight }, "*");
+      const h = document.documentElement.scrollHeight;
+      window.parent.postMessage({ iframeHeight: h }, "*");
     };
-    sendHeight();
+    setTimeout(sendHeight, 100);
     const observer = new ResizeObserver(sendHeight);
-    observer.observe(document.body);
+    observer.observe(document.documentElement);
     return () => observer.disconnect();
   }, []);
 
