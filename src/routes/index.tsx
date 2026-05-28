@@ -1105,6 +1105,16 @@ function RepairInquiryPage() {
                       title: "Brezplačen prevzem",
                       desc: "Pošljite napravo po pošti ali naročite naš prevzem na domu.",
                     },
+                    {
+                      tag: "10k+",
+                      title: "Popravljenih naprav",
+                      desc: "Zaupalo nam je že več kot 10.000 strank z vsega sveta.",
+                    },
+                    {
+                      tag: "10+",
+                      title: "Let izkušenj",
+                      desc: "Več kot 10 let strokovnih izkušenj z vsemi vrstami naprav.",
+                    },
                   ].map((f) => (
                     <li key={f.title} className="flex gap-4">
                       <div className="shrink-0 size-12 border border-background/20 flex items-center justify-center rounded-lg">
