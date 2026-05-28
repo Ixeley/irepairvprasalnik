@@ -759,7 +759,7 @@ function RepairInquiryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/10 selection:text-primary">
+    <div className="bg-background text-foreground selection:bg-primary/10 selection:text-primary">
       <Toaster position="top-right" richColors />
 
       <main className="w-full px-4 md:px-8 py-6 md:py-16">
