@@ -1067,11 +1067,11 @@ function RepairInquiryPage() {
                     },
                     {
                       tag: "€0",
-                      title: "Brezplačna diagnostika",
+                      title: "Brezplačna hitra diagnostika",
                       desc: "Hitra brezplačna diagnostika — če ni potrebno razstaviti naprave, ne plačate ničesar.",
                     },
                     {
-                      tag: "12m",
+                      tag: "3m",
                       title: "Garancija",
                       desc: "Na vsa opravljena popravila nudimo do 3 mesece garancije.",
                     },
