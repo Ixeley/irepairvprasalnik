@@ -751,10 +751,10 @@ function RepairInquiryPage() {
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/10 selection:text-primary">
       <Toaster position="top-right" richColors />
 
-      <main className="w-full max-w-7xl mx-auto px-3 sm:px-6 py-8 md:py-16">
+      <main className="w-full max-w-7xl mx-auto px-0 sm:px-4 md:px-6 py-6 md:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
           {/* Form Column */}
-          <div className="lg:col-span-8 space-y-12 animate-reveal">
+          <div className="lg:col-span-8 space-y-12 animate-reveal px-3 sm:px-0">
             <header className="space-y-4">
               <div className="text-xs font-mono text-primary uppercase tracking-widest">
                 Spletni obrazec za servis
@@ -1044,7 +1044,7 @@ function RepairInquiryPage() {
           </div>
 
           {/* Side Panel */}
-          <aside className="lg:col-span-4">
+          <aside className="lg:col-span-4 px-3 sm:px-0">
             <div className="lg:sticky lg:top-6 space-y-6">
               <div className="p-8 bg-foreground text-background rounded-2xl space-y-6 animate-reveal [animation-delay:500ms]">
                 <h3 className="text-xl font-bold uppercase tracking-tight">Zakaj iRepair?</h3>
@@ -1058,7 +1058,7 @@ function RepairInquiryPage() {
                     {
                       tag: "€0",
                       title: "Brezplačna diagnostika",
-                      desc: "Če naprave ne popravimo, ne plačate ničesar.",
+                      desc: "Hitra brezplačna diagnostika — če ni potrebno razstaviti naprave, ne plačate ničesar.",
                     },
                     {
                       tag: "12m",
@@ -1096,8 +1096,8 @@ function RepairInquiryPage() {
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-sm">Pokličite nas:</span>
-                    <a href="tel:+38641123456" className="font-bold hover:text-primary">
-                      041 123 456
+                    <a href="tel:+38659023951" className="font-bold hover:text-primary">
+                      059 023 951
                     </a>
                   </div>
                   <div className="flex justify-between items-center">
